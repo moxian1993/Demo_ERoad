@@ -1,0 +1,18 @@
+/* 
+  FNLocalizedString.strings
+  ERoadDemo
+
+  Created by Admin on 2021/4/15.
+  
+*/
+
+"Homepage" = "Home";
+"All" = "All";
+"Addcart" = "AddCart";
+"Me" = "Me";
+
+"all_search_title" = "Anything you want, it's here~";
+
+"salesVolume" = "Volume";
+"price" = "Price";
+"brand" = "Brand";

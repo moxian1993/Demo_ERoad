@@ -1,0 +1,18 @@
+/* 
+  FNLocalizedString.strings
+  ERoadDemo
+
+  Created by Admin on 2021/4/15.
+  
+*/
+
+"Homepage" = "首页";
+"All" = "商品分类";
+"Addcart" = "购物车";
+"Me" = "我的";
+
+"all_search_title" = "你想要的，试试这里~";
+
+"salesVolume" = "销量";
+"price" = "价格";
+"brand" = "品牌";
