@@ -17,7 +17,7 @@ class FNGoodsDetailController: FNBaseViewController {
             detailVM?.fnrequest_searchCategoryGoodsList(cate_id: cate_id ?? "140085272", page: 1, page_size: 100) { (isSuccess) in
                 if isSuccess {
                     self.tableView.reloadData()
-//                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 }
             }
         }
@@ -45,6 +45,7 @@ class FNGoodsDetailController: FNBaseViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(FNGoodsDetailCell.self, forCellReuseIdentifier: NSStringFromClass(FNGoodsDetailCell.self))
+        tableView.contentInsetAdjustmentBehavior = .never
     }
     
     private lazy var tableView: UITableView = {
@@ -56,7 +57,6 @@ class FNGoodsDetailController: FNBaseViewController {
         tableView.tableHeaderView?.frame.size.height = 50
         tableView.sectionFooterHeight = 0
         tableView.separatorStyle = .none
-//        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return tableView
     }()
     
@@ -79,7 +79,8 @@ class FNGoodsDetailController: FNBaseViewController {
         line.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.left.equalTo(lab.snp.right).offset(15)
-            make.width.equalTo(400)
+            // 在此设置 right 会有约束冲突，暂时设置定宽
+            make.width.equalTo(1000)
             make.height.equalTo(1)
         }
         return v
