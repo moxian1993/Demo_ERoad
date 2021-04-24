@@ -7,11 +7,19 @@
 
 import UIKit
 
+
+enum FNBtnTag: Int {
+    case volumnTag = 10, sortedTag, brandTag
+}
+
 class FNSortBtnsView: UIView {
     
     var volumeBtnDidClickedClosure: ((UIButton) -> ())?
     var sortedBtnDidClickedClosure: ((UIButton) -> ())?
     var brandBtnDidClickedClosure: ((UIButton) -> ())?
+    
+    var btns: [UIButton]?
+    var selectedBtnTag: FNBtnTag = .volumnTag
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,10 +34,14 @@ class FNSortBtnsView: UIView {
             make.top.bottom.equalToSuperview()
         }
         btns.snp.distributeViewsAlong(axisType: .horizontal, fixedSpacing: 1)
+        self.btns = btns
         
-        volumeBtn.addTarget(self, action: #selector(volumeBtnDidClicked(_:)), for: .touchUpInside)
-        sortedBtn.addTarget(self, action: #selector(sortedBtnDidClicked(_:)), for: .touchUpInside)
-        brandBtn.addTarget(self, action: #selector(brandBtnDidClicked(_:)), for: .touchUpInside)
+        volumeBtn.addTarget(self, action: #selector(btnDidClicked(_:)), for: .touchUpInside)
+        sortedBtn.addTarget(self, action: #selector(btnDidClicked(_:)), for: .touchUpInside)
+        brandBtn.addTarget(self, action: #selector(btnDidClicked(_:)), for: .touchUpInside)
+        
+        // 默认选中第一个
+        volumeBtn.isSelected = true
     }
     
     required init?(coder: NSCoder) {
@@ -38,40 +50,43 @@ class FNSortBtnsView: UIView {
     
     
     //MARK: - action
-    @objc private func volumeBtnDidClicked(_ sender: UIButton) {
-        print(#function)
-        if let closure = volumeBtnDidClickedClosure {
-            closure(sender)
-        }
-    }
-
-    @objc private func sortedBtnDidClicked(_ sender: UIButton) {
-        print(#function)
-        if let closure = sortedBtnDidClickedClosure {
-            closure(sender)
-        }
-    }
-    
-    @objc private func brandBtnDidClicked(_ sender: UIButton) {
-        print(#function)
-        if let closure = brandBtnDidClickedClosure {
-            closure(sender)
+    @objc private func btnDidClicked(_ sender: UIButton) {
+        
+        sender.isSelected = true
+        selectedBtnTag = FNBtnTag(rawValue: sender.tag)!
+        
+        btns?.filter{ return FNBtnTag(rawValue: $0.tag) != selectedBtnTag }
+            .forEach { $0.isSelected = false }
+        
+        switch selectedBtnTag {
+        case .volumnTag:
+            if let closure = volumeBtnDidClickedClosure {
+                closure(sender)
+            }
+        case .sortedTag:
+            if let closure = sortedBtnDidClickedClosure {
+                closure(sender)
+            }
+        case .brandTag:
+            if let closure = brandBtnDidClickedClosure {
+                closure(sender)
+            }
         }
     }
     
     
     // 销量btn
     private lazy var volumeBtn: UIButton = {
-        return createBtn(title: fn_string(key: "salesVolume"))
+        return createBtn(title: fn_string(key: "salesVolume"), tag: .volumnTag)
     }()
     // 价格btn
-    private lazy var sortedBtn = FNSortedBtn()
+    private lazy var sortedBtn = FNSortedBtn(tag: .sortedTag)
     // 品牌btn
     private lazy var brandBtn: UIButton = {
-        return createBtn(title: fn_string(key: "brand"))
+        return createBtn(title: fn_string(key: "brand"), tag: .brandTag)
     }()
     
-    private func createBtn(title: String) -> UIButton {
+    private func createBtn(title: String, tag: FNBtnTag) -> UIButton {
         let btn = UIButton(type: .custom)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         btn.setTitle(title, for: .normal)
@@ -80,6 +95,7 @@ class FNSortBtnsView: UIView {
         btn.setTitleColor(selectedColor, for: .selected)
         btn.backgroundColor = categoryColor
         btn.titleLabel?.textAlignment = .center
+        btn.tag = tag.rawValue
         return btn
     }
 }
@@ -87,9 +103,14 @@ class FNSortBtnsView: UIView {
 
 class FNSortedBtn: UIButton {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
+    var ascend: Bool = true
+    let img = UIImage(named: "triangle")
+    
+    init(tag: FNBtnTag) {
+        super.init(frame:CGRect())
+        
+        self.tag = tag.rawValue
+        
         addSubview(leftLine)
         addSubview(rightLine)
 
@@ -142,12 +163,12 @@ class FNSortedBtn: UIButton {
     }()
     
     private lazy var topIcon: UIImageView = {
-        let imgView = UIImageView(image: UIImage(named: "triangle"))
+        let imgView = UIImageView(image: img)
         return imgView
     }()
     
     private lazy var bottomIcon: UIImageView = {
-        let imgView = UIImageView(image: UIImage(named: "triangle"))
+        let imgView = UIImageView(image: img)
         imgView.transform = transform.rotated(by: .pi)
         return imgView
     }()
@@ -162,7 +183,22 @@ class FNSortedBtn: UIButton {
     
     override var isSelected: Bool {
         didSet {
-            
+            lab.textColor = isSelected ? selectedColor : grayTextColor
+            if isSelected {
+                if ascend {
+                    topIcon.image = topIcon.image?.withTintColor(selectedColor)
+                    bottomIcon.image = img
+                } else {
+                    topIcon.image = img
+                    bottomIcon.image = bottomIcon.image?.withTintColor(selectedColor)
+                }
+                ascend = !ascend
+            } else {
+                // 置为默认
+                ascend = true
+                topIcon.image = img
+                bottomIcon.image = img
+            }
         }
     }
 }

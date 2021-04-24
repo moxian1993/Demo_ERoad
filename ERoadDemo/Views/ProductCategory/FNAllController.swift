@@ -27,6 +27,8 @@ class FNAllController: FNBaseViewController {
         }
     }
     
+    var selectedIndexPath: IndexPath?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -139,6 +141,11 @@ extension FNAllController: UICollectionViewDataSource {
 extension FNAllController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if selectedIndexPath == indexPath {
+            return
+        }
+        selectedIndexPath = indexPath
         let cell = collectionView.cellForItem(at: indexPath) as! FNGoodsFirstGradeCell
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         

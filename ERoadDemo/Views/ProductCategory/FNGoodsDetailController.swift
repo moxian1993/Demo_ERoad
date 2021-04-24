@@ -45,7 +45,6 @@ class FNGoodsDetailController: FNBaseViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(FNGoodsDetailCell.self, forCellReuseIdentifier: NSStringFromClass(FNGoodsDetailCell.self))
-        tableView.contentInsetAdjustmentBehavior = .never
     }
     
     private lazy var tableView: UITableView = {

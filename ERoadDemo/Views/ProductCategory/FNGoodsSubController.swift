@@ -28,6 +28,8 @@ class FNGoodsSubController: FNBaseViewController {
         }
     }
     
+    var selectedIndex: IndexPath?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -170,6 +172,11 @@ extension FNGoodsSubController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if selectedIndex == indexPath {
+            return
+        }
+        selectedIndex = indexPath
+        
         tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
         let cate_id = subVM?.getCateIdForIndexPath(indexPath) ?? "140085272"
         subVM?.fnrequest_getGoodsSubGrade(cate_id: cate_id, isDetailSub: true) { (isSuccess) in
