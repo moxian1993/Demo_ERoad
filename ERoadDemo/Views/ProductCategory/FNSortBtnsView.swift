@@ -39,15 +39,15 @@ class FNSortBtnsView: UIView {
         volumeBtn.addTarget(self, action: #selector(btnDidClicked(_:)), for: .touchUpInside)
         sortedBtn.addTarget(self, action: #selector(btnDidClicked(_:)), for: .touchUpInside)
         brandBtn.addTarget(self, action: #selector(btnDidClicked(_:)), for: .touchUpInside)
-        
-        // 默认选中第一个
-        volumeBtn.isSelected = true
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func initStatus() {
+        btnDidClicked(btns![0])
+    }
     
     //MARK: - action
     @objc private func btnDidClicked(_ sender: UIButton) {
