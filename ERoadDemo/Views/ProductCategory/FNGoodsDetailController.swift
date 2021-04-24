@@ -23,7 +23,14 @@ class FNGoodsDetailController: FNBaseViewController {
         }
     }
     
-
+    var cate_name: String? {
+        didSet {
+            headViewLab?.text = cate_name
+        }
+    }
+    
+    var headViewLab: UILabel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,19 +47,44 @@ class FNGoodsDetailController: FNBaseViewController {
         tableView.register(FNGoodsDetailCell.self, forCellReuseIdentifier: NSStringFromClass(FNGoodsDetailCell.self))
     }
     
-    lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect(), style: .grouped)
         tableView.backgroundColor = UIColor.white
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
-//        tableView.tableHeaderView = UIView()
-//        tableView.tableFooterView = UIView()
+        tableView.tableHeaderView = headView
+        tableView.tableHeaderView?.frame.size.height = 50
         tableView.sectionFooterHeight = 0
         tableView.separatorStyle = .none
 //        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.separatorStyle = .singleLine
         return tableView
     }()
+    
+    private lazy var headView: UIView = {
+        let v = UIView()
+        
+        let lab = UILabel()
+        lab.textColor = lightGrayTextColor
+        lab.font = UIFont.systemFont(ofSize: 15)
+        v.addSubview(lab)
+        lab.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(10)
+        }
+        self.headViewLab = lab
+        
+        let line = UIView()
+        line.backgroundColor = categoryColor
+        v.addSubview(line)
+        line.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.left.equalTo(lab.snp.right).offset(15)
+            make.width.equalTo(400)
+            make.height.equalTo(1)
+        }
+        return v
+    }()
+
 
 }
 

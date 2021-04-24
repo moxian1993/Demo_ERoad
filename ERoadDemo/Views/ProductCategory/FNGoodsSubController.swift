@@ -170,7 +170,7 @@ extension FNGoodsSubController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
         let cate_id = subVM?.getCateIdForIndexPath(indexPath) ?? "140085272"
         subVM?.fnrequest_getGoodsSubGrade(cate_id: cate_id, isDetailSub: true) { (isSuccess) in
             if isSuccess {
@@ -199,8 +199,11 @@ extension FNGoodsSubController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         let cate_id = subVM?.getChildCateIdForIndexPath(indexPath) ?? "140085272"
+        let cate_name = subVM?.getChildCateNameForIndexPath(indexPath) ?? "饮用水"
         detailController.cate_id = cate_id
+        detailController.cate_name = cate_name
     }
     
 }

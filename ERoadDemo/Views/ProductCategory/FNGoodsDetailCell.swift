@@ -111,6 +111,13 @@ class FNGoodsDetailCell: UITableViewCell {
             make.left.equalTo(nowPriceLab)
             make.bottom.equalTo(nowPriceLab.snp.top).offset(-1)
         }
+        
+        contentView.addSubview(separatorLine)
+        separatorLine.snp.makeConstraints { (make) in
+            make.bottom.right.equalToSuperview()
+            make.left.equalToSuperview().offset(10)
+            make.height.equalTo(1)
+        }
     }
     
     lazy var imgView: UIImageView = {
@@ -182,6 +189,12 @@ class FNGoodsDetailCell: UITableViewCell {
         lab.textColor = selectedColor
         lab.text = "￥***"
         return lab
+    }()
+    
+    lazy var separatorLine: UIView = {
+        let v = UIView()
+        v.backgroundColor = categoryColor
+        return v
     }()
 
     required init?(coder: NSCoder) {

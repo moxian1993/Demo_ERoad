@@ -140,6 +140,7 @@ extension FNAllController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! FNGoodsFirstGradeCell
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         
         subController.cate_id = cell.viewModel?.cateID
     }

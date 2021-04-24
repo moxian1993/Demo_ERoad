@@ -31,6 +31,11 @@ class FNProductsSubVM {
         return getChildViewModelWithIndexPath(indexPath)?.model.cate_id
     }
     
+    // 获取对应子cate_name
+    func getChildCateNameForIndexPath(_ indexPath: IndexPath) -> String? {
+        return getChildViewModelWithIndexPath(indexPath)?.model.cate_name
+    }
+    
     //MARK: - Request
     /// 分类页二/三级类目
     /// - Parameters:
