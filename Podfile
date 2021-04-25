@@ -11,6 +11,7 @@ pod 'Alamofire'
 pod 'Kingfisher'
 pod 'SDWebImage'
 pod 'MJRefresh'
+pod 'Toast-Swift', '~> 5.0.1'
 
 pod 'Masonry'
 pod 'NerdyUI'

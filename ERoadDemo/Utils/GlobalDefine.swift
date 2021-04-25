@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 import Kingfisher
 import SnapKit
+import MJRefresh
+
+let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
 
 // color
 let categoryColor: UIColor = _Color("#DCDCDC") ?? UIColor.lightGray

@@ -21,6 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.frame = UIScreen.main.bounds
         window?.rootViewController = FNTabBarController()
         window?.makeKeyAndVisible()
+        
+        FNToastManager.config()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

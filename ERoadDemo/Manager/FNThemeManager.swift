@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FNThemeManager: NSObject {
+class FNThemeManager {
     
     class func image(named: String) -> UIImage? {
         return UIImage(named: named)

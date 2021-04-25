@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Toast_Swift
 
 
 class FNAllController: FNBaseViewController {
@@ -145,6 +145,8 @@ extension FNAllController: UICollectionViewDelegate {
         if selectedIndexPath == indexPath {
             return
         }
+        FNToastManager.show()
+        
         selectedIndexPath = indexPath
         let cell = collectionView.cellForItem(at: indexPath) as! FNGoodsFirstGradeCell
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)

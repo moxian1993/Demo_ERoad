@@ -16,6 +16,8 @@ class FNGoodsDetailController: FNBaseViewController {
         didSet{
             detailVM?.fnrequest_searchCategoryGoodsList(cate_id: cate_id ?? "140085272", page: 1, page_size: 100) { (isSuccess) in
                 if isSuccess {
+                    FNToastManager.hide()
+                    
                     self.tableView.reloadData()
                     self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 }

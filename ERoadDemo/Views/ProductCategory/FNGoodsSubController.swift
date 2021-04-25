@@ -18,6 +18,8 @@ class FNGoodsSubController: FNBaseViewController {
                     self.leftTableView.reloadData()
                     DispatchQueue.main.async {
                         self.leftTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
+                        
+                        self.selectedIndex = nil
                         self.tableView(self.leftTableView, didSelectRowAt: IndexPath(row: 0, section: 0))
                         
                         self.grayLine.isHidden = false
@@ -176,6 +178,7 @@ extension FNGoodsSubController: UITableViewDataSource, UITableViewDelegate {
             return
         }
         selectedIndex = indexPath
+        FNToastManager.show()
         
         tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
         let cate_id = subVM?.getCateIdForIndexPath(indexPath) ?? "140085272"
@@ -208,6 +211,7 @@ extension FNGoodsSubController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         // 重置选中销量按钮
+        FNToastManager.hide()
         self.btnsView.initStatus()
         
         let cate_id = subVM?.getChildCateIdForIndexPath(indexPath) ?? "140085272"

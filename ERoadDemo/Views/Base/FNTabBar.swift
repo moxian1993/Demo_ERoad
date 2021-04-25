@@ -42,6 +42,7 @@ class FNTabBar: UITabBar {
         
         btn.addTarget(self, action: #selector(self.scanBtnDidClicked(_:)), for: .touchUpInside)
         
+        UITabBar.appearance().isTranslucent = false
     }
     
     required init?(coder: NSCoder) {
