@@ -211,7 +211,7 @@ extension FNGoodsSubController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         // 重置选中销量按钮
-        FNToastManager.hide()
+        FNToastManager.show()
         self.btnsView.initStatus()
         
         let cate_id = subVM?.getChildCateIdForIndexPath(indexPath) ?? "140085272"

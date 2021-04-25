@@ -26,6 +26,7 @@ class FNToastManager {
     
     class func hide() {
         clearView.hideToastActivity()
+        clearView.removeFromSuperview()
     }
     
     static let clearView: UIView = {
