@@ -22,6 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = FNTabBarController()
         window?.makeKeyAndVisible()
         
+        FNNetworkManager.netWorkReachability { (status) in
+            print(status)
+        }
         FNToastManager.config()
     }
 
