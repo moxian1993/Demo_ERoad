@@ -46,11 +46,12 @@ class FNGoodsDetailController: FNBaseViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.refreshDelegate = self
         tableView.register(FNGoodsDetailCell.self, forCellReuseIdentifier: NSStringFromClass(FNGoodsDetailCell.self))
     }
-    
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect(), style: .grouped)
+
+    private lazy var tableView: MKRefreshTableView = {
+        let tableView = MKRefreshTableView(frame: CGRect(), style: .grouped)
         tableView.backgroundColor = UIColor.white
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
@@ -104,4 +105,11 @@ extension FNGoodsDetailController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+}
+
+extension FNGoodsDetailController: MKRefreshTableViewDelegate {
+    
+    func tableView(_ tableView: MKRefreshTableView!, footerRefreshEnding refreshEnding: (() -> Void)!) {
+        refreshEnding()
+    }
 }

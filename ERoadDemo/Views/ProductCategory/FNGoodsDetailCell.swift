@@ -6,14 +6,15 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FNGoodsDetailCell: UITableViewCell {
     
     var viewModel: FNGoodsDetailInfoVM? {
         didSet {
             guard let vm = viewModel else { return }
-            if let url = URL(string: vm.imgURLString) {
-                imgView.kf.setImage(with: url)
+            if let url = URL(string: vm.pngImgURLString) {
+                imgView.sd_setImage(with: url, completed: nil)
             }
             tipsLab.isHidden = vm.isTipsHidden
             

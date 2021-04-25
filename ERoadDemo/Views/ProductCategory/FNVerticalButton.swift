@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Kingfisher
+import SDWebImage
 
 class FNVerticalButton: UIControl {
     
@@ -70,8 +70,9 @@ class FNVerticalButton: UIControl {
         didSet {
             guard let vm = viewModel else { return }
             lab.text = vm.model.cate_name
-            if let url = URL(string: vm.imgURLString)  {
-                imgView.kf.setImage(with: url)
+            if let url = URL(string: vm.pngImgURLString)  {
+                let options: SDWebImageOptions = [.scaleDownLargeImages, .avoidDecodeImage]
+                imgView.sd_setImage(with: url, placeholderImage: nil, options: options, context: nil)
             }
         }
     }

@@ -93,6 +93,7 @@ class FNSortBtnsView: UIView {
         btn.setTitleColor(grayTextColor, for: .normal)
         btn.setTitleColor(selectedColor, for: .highlighted)
         btn.setTitleColor(selectedColor, for: .selected)
+        btn.setTitleColor(selectedColor, for: [.highlighted, .selected])
         btn.backgroundColor = categoryColor
         btn.titleLabel?.textAlignment = .center
         btn.tag = tag.rawValue
