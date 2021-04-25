@@ -19,7 +19,7 @@ class FNGoodsDetailController: FNBaseViewController {
                     FNToastManager.hide()
                     
                     self.tableView.reloadData()
-                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 }
             }
         }
@@ -55,9 +55,6 @@ class FNGoodsDetailController: FNBaseViewController {
         tableView.backgroundColor = UIColor.white
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
-        tableView.tableHeaderView = headView
-        tableView.tableHeaderView?.frame.size.height = 50
-        tableView.sectionFooterHeight = 0
         tableView.separatorStyle = .none
         return tableView
     }()
@@ -105,6 +102,13 @@ extension FNGoodsDetailController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return headView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
 }
 
 extension FNGoodsDetailController: MKRefreshTableViewDelegate {
