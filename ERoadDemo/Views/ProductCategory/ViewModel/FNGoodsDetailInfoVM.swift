@@ -19,10 +19,6 @@ class FNGoodsDetailInfoVM {
         return model.imgurl
     }
     
-    var pngImgURLString: String {
-        return imgURLString._subReplace(".webp", "")
-    }
-    
     var spec: String {
         return model.spec
     }

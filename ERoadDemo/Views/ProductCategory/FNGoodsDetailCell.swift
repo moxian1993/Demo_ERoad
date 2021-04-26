@@ -13,7 +13,7 @@ class FNGoodsDetailCell: UITableViewCell {
     var viewModel: FNGoodsDetailInfoVM? {
         didSet {
             guard let vm = viewModel else { return }
-            if let url = URL(string: vm.pngImgURLString) {
+            if let url = URL(string: vm.imgURLString) {
                 imgView.sd_setImage(with: url, completed: nil)
             }
             tipsLab.isHidden = vm.isTipsHidden

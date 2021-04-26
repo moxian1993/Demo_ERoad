@@ -15,10 +15,6 @@ class FNGoodsCategoryVM {
         return model.img_url
     }
     
-    var pngImgURLString: String {
-        return imgURLString._subReplace(".webp", "")
-    }
-    
     var cateID: String {
         return model.cate_id
     }

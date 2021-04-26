@@ -17,6 +17,7 @@
 		8457DEA7263161B500AA7BB7 /* FNGoodsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8457DEA6263161B500AA7BB7 /* FNGoodsDetailController.swift */; };
 		8457DEAC2631629500AA7BB7 /* FNProductDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8457DEAB2631629500AA7BB7 /* FNProductDetailVM.swift */; };
 		8457DEB426316BB400AA7BB7 /* FNGoodsDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8457DEB326316BB400AA7BB7 /* FNGoodsDetailCell.swift */; };
+		846910042636B8BE00DDC724 /* FNNotificationString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846910032636B8BE00DDC724 /* FNNotificationString.swift */; };
 		848B5C6026268CCD00390575 /* FNTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848B5C5F26268CCD00390575 /* FNTabBarController.swift */; };
 		848B5C6526268FBA00390575 /* FNThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848B5C6426268FBA00390575 /* FNThemeManager.swift */; };
 		848B5C6A2626902D00390575 /* FNHomepageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848B5C692626902D00390575 /* FNHomepageController.swift */; };
@@ -83,6 +84,7 @@
 		8457DEA6263161B500AA7BB7 /* FNGoodsDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNGoodsDetailController.swift; sourceTree = "<group>"; };
 		8457DEAB2631629500AA7BB7 /* FNProductDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNProductDetailVM.swift; sourceTree = "<group>"; };
 		8457DEB326316BB400AA7BB7 /* FNGoodsDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNGoodsDetailCell.swift; sourceTree = "<group>"; };
+		846910032636B8BE00DDC724 /* FNNotificationString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNNotificationString.swift; sourceTree = "<group>"; };
 		848B5C5F26268CCD00390575 /* FNTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNTabBarController.swift; sourceTree = "<group>"; };
 		848B5C6426268FBA00390575 /* FNThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNThemeManager.swift; sourceTree = "<group>"; };
 		848B5C692626902D00390575 /* FNHomepageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNHomepageController.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 				848B5C6426268FBA00390575 /* FNThemeManager.swift */,
 				84FF7F3026291A4F0049E99D /* FNNetworkManager.swift */,
 				84C8227A26350FE000C6BFCD /* FNToastManager.swift */,
+				846910032636B8BE00DDC724 /* FNNotificationString.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -650,6 +653,7 @@
 				848F54CF262FD02500B7B73E /* FNAllGoodsSubCell.m in Sources */,
 				84FF7F3126291A4F0049E99D /* FNNetworkManager.swift in Sources */,
 				848B5C6526268FBA00390575 /* FNThemeManager.swift in Sources */,
+				846910042636B8BE00DDC724 /* FNNotificationString.swift in Sources */,
 				848E79422628249700D2D474 /* ColorSuger.swift in Sources */,
 				8457DE4C2631063A00AA7BB7 /* FNGoodsSubRightCell.swift in Sources */,
 				849952CC2632700C00480A4F /* FNGoodsDetailInfoVM.swift in Sources */,

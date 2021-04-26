@@ -70,7 +70,7 @@ class FNVerticalButton: UIControl {
         didSet {
             guard let vm = viewModel else { return }
             lab.text = vm.model.cate_name
-            if let url = URL(string: vm.pngImgURLString)  {
+            if let url = URL(string: vm.imgURLString)  {
                 let options: SDWebImageOptions = [.scaleDownLargeImages, .avoidDecodeImage]
                 imgView.sd_setImage(with: url, placeholderImage: nil, options: options, context: nil)
             }

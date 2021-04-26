@@ -11,6 +11,7 @@ pod 'Alamofire'
 pod 'SDWebImage'
 pod 'MJRefresh'
 pod 'Toast-Swift', '~> 5.0.1'
+pod 'SDWebImageWebPCoder'
 
 pod 'Masonry'
 pod 'NerdyUI'

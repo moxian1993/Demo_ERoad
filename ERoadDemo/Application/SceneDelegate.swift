@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImageWebPCoder
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -26,6 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print(status)
         }
         FNToastManager.config()
+        
+        let WebPCoder = SDImageWebPCoder.shared
+        SDImageCodersManager.shared.addCoder(WebPCoder)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

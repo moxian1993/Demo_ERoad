@@ -1,5 +1,14 @@
 PODS:
   - Alamofire (5.4.3)
+  - libwebp (1.2.0):
+    - libwebp/demux (= 1.2.0)
+    - libwebp/mux (= 1.2.0)
+    - libwebp/webp (= 1.2.0)
+  - libwebp/demux (1.2.0):
+    - libwebp/webp
+  - libwebp/mux (1.2.0):
+    - libwebp/demux
+  - libwebp/webp (1.2.0)
   - Masonry (1.1.0)
   - MJRefresh (3.5.0)
   - NerdyUI (1.2.1):
@@ -15,6 +24,9 @@ PODS:
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
+  - SDWebImageWebPCoder (0.8.3):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.10)
   - SnapKit (5.0.1)
   - Toast-Swift (5.0.1)
 
@@ -24,28 +36,33 @@ DEPENDENCIES:
   - MJRefresh
   - NerdyUI
   - SDWebImage
+  - SDWebImageWebPCoder
   - SnapKit
   - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - libwebp
     - Masonry
     - MJRefresh
     - NerdyUI
     - SDWebImage
+    - SDWebImageWebPCoder
     - SnapKit
     - Toast-Swift
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  libwebp: e90b9c01d99205d03b6bb8f2c8c415e5a4ef66f0
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   NerdyUI: ae4506046b544a5cdc0873a58c1ece61b29631d0
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SDWebImageWebPCoder: bbf46e29fb8d1980a78ad3d5e9b4123c77f10ebc
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 4bf428013a6fe57878d10976cf15058ac82659db
+PODFILE CHECKSUM: 89f87e6da6602dbe1ace56e4fce4de57e9833a0e
 
 COCOAPODS: 1.10.1
