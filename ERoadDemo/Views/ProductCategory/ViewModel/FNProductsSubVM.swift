@@ -31,16 +31,19 @@ class FNProductsSubVM {
         return getChildViewModelWithIndexPath(indexPath)?.model.cate_id
     }
     
-    // 获取对应子cate_name
-    func getChildCateNameForIndexPath(_ indexPath: IndexPath) -> String? {
-        return getChildViewModelWithIndexPath(indexPath)?.model.cate_name
-    }
     
     func getChildCateIdList() -> [String]? {
         guard let viewModels = subDetailGradeViewModels else {
             return nil
         }
         return viewModels.map { return $0.cateID }
+    }
+    
+    func getChildCateNameList() -> [String]? {
+        guard let viewModels = subDetailGradeViewModels else {
+            return nil
+        }
+        return viewModels.map { return $0.cateName }
     }
     
     //MARK: - Request

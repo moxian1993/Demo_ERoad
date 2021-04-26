@@ -215,10 +215,9 @@ extension FNGoodsSubController: UICollectionViewDataSource, UICollectionViewDele
         self.btnsView.initStatus()
         
         let cate_id = subVM?.getChildCateIdForIndexPath(indexPath) ?? "140085272"
-        let cate_name = subVM?.getChildCateNameForIndexPath(indexPath) ?? "饮用水"
         detailController.cate_id = cate_id
-        detailController.cate_name = cate_name
         detailController.cate_idList = subVM?.getChildCateIdList()
+        detailController.cate_nameList = subVM?.getChildCateNameList()
     }
     
 }

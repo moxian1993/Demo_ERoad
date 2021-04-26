@@ -14,7 +14,11 @@ struct RefreshParams {
 
 class FNProductsDetailVM {
     
+    // 手动点击按钮进入时的 cate_id
+    var cate_id_initial: String?
+    
     var cate_idList: [String]?
+    var cate_nameList: [String]?
     
     var detailInfoViewModelsList: [[FNGoodsDetailInfoVM]] = [[FNGoodsDetailInfoVM]]()
 
@@ -34,6 +38,20 @@ class FNProductsDetailVM {
 
     func getDetailViewModelWithIndexPath(_ indexPath: IndexPath) -> FNGoodsDetailInfoVM {
         return detailInfoViewModelsList[indexPath.section][indexPath.row]
+    }
+    
+    func getTextForHeaderViewInSection(_ section: Int) -> String? {
+        let arr = getTitlesForHeaderViewInSection(section)
+        return arr?[section]
+    }
+    
+    func getTitlesForHeaderViewInSection(_ section: Int) -> [String]? {
+        guard cate_idList != nil && cate_id_initial != nil else {
+            return nil
+        }
+        let index = cate_idList!.firstIndex(of: cate_id_initial!) ?? 0
+        let arr = Array(cate_nameList![index...])
+        return arr
     }
     
     
@@ -119,7 +137,6 @@ class FNProductsDetailVM {
                         self.detailInfoViewModelsList.removeAll()
                     }
                     self.detailInfoViewModelsList.append(detailInfoViewModels)
-                    print("--- firstPullCount:\(detailInfoViewModels.count)")
                     completed(true)
                 } catch _ {
                     completed(false)

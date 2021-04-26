@@ -21,8 +21,18 @@ class FNGoodsDetailController: FNBaseViewController {
         }
     }
     
+    var cate_nameList: [String]? {
+        set {
+            self.detailVM?.cate_nameList = newValue
+        }
+        get {
+            return self.detailVM?.cate_nameList
+        }
+    }
+    
     var cate_id: String? {
         didSet{
+            detailVM?.cate_id_initial = cate_id
             detailVM?.firstPullGoodsList(isManualTurn: true, cate_id: cate_id ?? "140085272") { (isSuccess) in
                 if isSuccess {
                     FNToastManager.hide()
@@ -33,14 +43,6 @@ class FNGoodsDetailController: FNBaseViewController {
             }
         }
     }
-    
-    var cate_name: String? {
-        didSet {
-//            headViewLab?.text = cate_name
-        }
-    }
-    
-    var headViewLab: UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,19 +60,8 @@ class FNGoodsDetailController: FNBaseViewController {
         tableView.refreshDelegate = self
         tableView.register(FNGoodsDetailCell.self, forCellReuseIdentifier: NSStringFromClass(FNGoodsDetailCell.self))
     }
-
-    private lazy var tableView: MKRefreshTableView = {
-        let tableView = MKRefreshTableView(frame: CGRect(), style: .grouped)
-        tableView.setHeaderOnlyActivityControlWithUseArrorIcon(true)
-        tableView.hideHeader()
-        tableView.backgroundColor = UIColor.white
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 80
-        tableView.separatorStyle = .none
-        return tableView
-    }()
     
-    private lazy var headView: UIView = {
+    func createHeaderViewForSection(_ section: Int) -> UIView {
         let v = UIView()
         
         let lab = UILabel()
@@ -81,7 +72,7 @@ class FNGoodsDetailController: FNBaseViewController {
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(10)
         }
-        self.headViewLab = lab
+        lab.text = detailVM?.getTextForHeaderViewInSection(section)
         
         let line = UIView()
         line.backgroundColor = categoryColor
@@ -94,9 +85,19 @@ class FNGoodsDetailController: FNBaseViewController {
             make.height.equalTo(1)
         }
         return v
+    }
+
+    private lazy var tableView: MKRefreshTableView = {
+        let tableView = MKRefreshTableView(frame: CGRect(), style: .grouped)
+        tableView.setHeaderOnlyActivityControlWithUseArrorIcon(true)
+        tableView.hideHeader()
+        tableView.backgroundColor = UIColor.white
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
+        tableView.separatorStyle = .none
+        return tableView
     }()
-
-
+    
 }
 
 extension FNGoodsDetailController: UITableViewDataSource, UITableViewDelegate {
@@ -117,13 +118,13 @@ extension FNGoodsDetailController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return headView
-//    }
-//    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 50
-//    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return createHeaderViewForSection(section)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
 }
 
 extension FNGoodsDetailController: MKRefreshTableViewDelegate {
