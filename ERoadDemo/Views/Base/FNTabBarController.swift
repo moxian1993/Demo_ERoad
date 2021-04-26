@@ -14,7 +14,7 @@ class FNTabBarController: UITabBarController {
         setup()
         setValue(FNTabBar(), forKey: "tabBar")
         
-        self.selectedIndex = 1
+//        self.selectedIndex = 1
     }
     
     required init?(coder: NSCoder) {
