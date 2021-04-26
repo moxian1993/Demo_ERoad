@@ -12,9 +12,6 @@ pod 'SDWebImage'
 pod 'MJRefresh'
 pod 'Toast-Swift', '~> 5.0.1'
 
-#pod 'libwebp', :git => 'https://github.com/webmproject/libwebp.git'
-#pod 'SDWebImageWebPCoder', :git => 'https://github.com/webmproject/libwebp.git'
-
 pod 'Masonry'
 pod 'NerdyUI'
 

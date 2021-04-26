@@ -14,12 +14,12 @@ class FNGoodsDetailController: FNBaseViewController {
     
     var cate_id: String? {
         didSet{
-            detailVM?.fnrequest_searchCategoryGoodsList(cate_id: cate_id ?? "140085272", page: 1, page_size: 100) { (isSuccess) in
+            detailVM?.firstPullGoodsList(cate_id: cate_id ?? "140085272") { (isSuccess) in
                 if isSuccess {
                     FNToastManager.hide()
-                    
                     self.tableView.reloadData()
                     self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                    self.tableView.resetNoMoreData()
                 }
             }
         }
@@ -52,6 +52,8 @@ class FNGoodsDetailController: FNBaseViewController {
 
     private lazy var tableView: MKRefreshTableView = {
         let tableView = MKRefreshTableView(frame: CGRect(), style: .grouped)
+        tableView.setHeaderOnlyActivityControlWithUseArrorIcon(true)
+        tableView.hideHeader()
         tableView.backgroundColor = UIColor.white
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
@@ -114,6 +116,14 @@ extension FNGoodsDetailController: UITableViewDataSource, UITableViewDelegate {
 extension FNGoodsDetailController: MKRefreshTableViewDelegate {
     
     func tableView(_ tableView: MKRefreshTableView!, footerRefreshEnding refreshEnding: (() -> Void)!) {
-        refreshEnding()
+        detailVM?.nextPage { (isSuccess) in
+            if isSuccess {
+                self.tableView.reloadData()
+            }
+            let hasMore = self.detailVM?.hasMore ?? false
+            print(hasMore)
+            tableView.hasMore(hasMore)
+            refreshEnding()
+        }
     }
 }
