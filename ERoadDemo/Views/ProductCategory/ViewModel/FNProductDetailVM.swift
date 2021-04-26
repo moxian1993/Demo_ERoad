@@ -14,29 +14,58 @@ struct RefreshParams {
 
 class FNProductsDetailVM {
     
-    private var detailModel: GoodsDetail?
-    var detailInfoViewModels: [FNGoodsDetailInfoVM]?
+    var cate_idList: [String]?
     
-    var sortInfo: [SortInfo]? {
-        return detailModel?.sortInfo
-    }
-    var Goods: [Goods]? {
-        return detailModel?.list
-    }
-    
-    // 不准确 不要用
-    var total: Int {
-        return detailModel?.total ?? 0
-    }
+    var detailInfoViewModelsList: [[FNGoodsDetailInfoVM]] = [[FNGoodsDetailInfoVM]]()
 
     let page_size: Int = 10
     
     var refreshParams: RefreshParams?
     
     var hasMore: Bool = true
+    
+    func getNumberOfSections() -> Int {
+        return detailInfoViewModelsList.count
+    }
+    
+    func getnumberOfRowsInSection(_ section: Int) -> Int {
+        return detailInfoViewModelsList[section].count
+    }
 
-    func getDetailViewModelWithIndexPath(_ indexPath: IndexPath) -> FNGoodsDetailInfoVM? {
-        return detailInfoViewModels?[indexPath.row]
+    func getDetailViewModelWithIndexPath(_ indexPath: IndexPath) -> FNGoodsDetailInfoVM {
+        return detailInfoViewModelsList[indexPath.section][indexPath.row]
+    }
+    
+    
+    func pullNextCategoryData(completed: @escaping (_ isSuccess :Bool)->()) {
+        
+        guard let nextCateId = self.findNextCateId() else {
+            print("--- no more")
+            self.hasMore = false
+            // 真实page
+            self.refreshParams!.page -= 1
+            completed(true)
+            return
+        }
+        print("nextid:\(nextCateId)")
+        firstPullGoodsList(isManualTurn: false, cate_id: nextCateId, completed: completed)
+    }
+    
+    func findNextCateId() -> String? {
+        
+        guard let cateIDList = cate_idList,  let params = self.refreshParams  else {
+            return nil
+        }
+        
+        let index = cateIDList.firstIndex(of: params.cate_id)!
+        
+        if index + 1 < cateIDList.count {
+            // 仍在当前二级 category中
+            return cateIDList[index+1]
+        } else {
+            // 下一个二级 category
+            return nil
+        }
     }
     
     //MARK: - Request
@@ -71,17 +100,26 @@ class FNProductsDetailVM {
     
     
     
-    //MARK: - 第一次拉取
-    func firstPullGoodsList(cate_id: String, completed: @escaping (_ isSuccess: Bool)->()) {
+    /// 首次拉取数据
+    /// - Parameters:
+    ///   - shouldClearData: 是否清除已有数据（手动跳转需要清除，加载下一分栏不需要清除）
+    ///   - cate_id: cate_id
+    ///   - completed: completed
+    /// - Returns: Returns
+    func firstPullGoodsList(isManualTurn shouldClearData: Bool, cate_id: String, completed: @escaping (_ isSuccess: Bool)->()) {
         fnrequest_searchCategoryGoodsList(cate_id: cate_id, page: 1, page_size: page_size) { (isSuccess, obj) in
             if isSuccess {
                 self.refreshParams = RefreshParams(cate_id: cate_id, page: 1)
                 self.hasMore = true
                 do {
-                    self.detailModel = try JSONDecoder().decode(GoodsDetail.self, from: obj as! Data)
-                    self.detailInfoViewModels = self.detailModel?.list.map { return FNGoodsDetailInfoVM(model: $0) }
+                    let detailModel = try JSONDecoder().decode(GoodsDetail.self, from: obj as! Data)
+                    let detailInfoViewModels = detailModel.list.map { return FNGoodsDetailInfoVM(model: $0) }
                     
-                    print("--- firstPull total:\(self.detailModel?.total ?? 0), vms:\(self.detailInfoViewModels?.count ?? 0)")
+                    if shouldClearData {
+                        self.detailInfoViewModelsList.removeAll()
+                    }
+                    self.detailInfoViewModelsList.append(detailInfoViewModels)
+                    print("--- firstPullCount:\(detailInfoViewModels.count)")
                     completed(true)
                 } catch _ {
                     completed(false)
@@ -111,18 +149,16 @@ class FNProductsDetailVM {
                     let viewModels = goodsDetails.list.map { return FNGoodsDetailInfoVM(model: $0) }
                     
                     if viewModels.count == 0 {
-                        print("--- no more")
-                        self.hasMore = false
-                        // 真实page
-                        self.refreshParams!.page -= 1
-                        completed(true)
+                        // 当前分栏加载完毕
+                        self.pullNextCategoryData(completed: completed)
                         return
                     }
                     
-                    self.detailModel?.list.append(contentsOf: goodsDetails.list)
-                    self.detailInfoViewModels?.append(contentsOf: viewModels)
+                    var arr = self.detailInfoViewModelsList.last
+                    arr?.append(contentsOf: viewModels)
                     
-                    print("--- cate_id:\(cate_id), page:\(page), total:\(self.detailModel?.total ?? 0),\nnew:\(goodsDetails.list.count), now:\(self.detailInfoViewModels?.count ?? 0)")
+                    self.detailInfoViewModelsList.removeLast()
+                    self.detailInfoViewModelsList.append(arr!)
                     completed(true)
                 } catch {
                     completed(false)

@@ -36,6 +36,13 @@ class FNProductsSubVM {
         return getChildViewModelWithIndexPath(indexPath)?.model.cate_name
     }
     
+    func getChildCateIdList() -> [String]? {
+        guard let viewModels = subDetailGradeViewModels else {
+            return nil
+        }
+        return viewModels.map { return $0.cateID }
+    }
+    
     //MARK: - Request
     /// 分类页二/三级类目
     /// - Parameters:

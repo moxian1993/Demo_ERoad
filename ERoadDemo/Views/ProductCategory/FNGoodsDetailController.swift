@@ -12,9 +12,18 @@ class FNGoodsDetailController: FNBaseViewController {
     
     var detailVM: FNProductsDetailVM?
     
+    var cate_idList: [String]? {
+        set {
+            self.detailVM?.cate_idList = newValue
+        }
+        get {
+            return self.detailVM?.cate_idList
+        }
+    }
+    
     var cate_id: String? {
         didSet{
-            detailVM?.firstPullGoodsList(cate_id: cate_id ?? "140085272") { (isSuccess) in
+            detailVM?.firstPullGoodsList(isManualTurn: true, cate_id: cate_id ?? "140085272") { (isSuccess) in
                 if isSuccess {
                     FNToastManager.hide()
                     self.tableView.reloadData()
@@ -27,7 +36,7 @@ class FNGoodsDetailController: FNBaseViewController {
     
     var cate_name: String? {
         didSet {
-            headViewLab?.text = cate_name
+//            headViewLab?.text = cate_name
         }
     }
     
@@ -92,8 +101,12 @@ class FNGoodsDetailController: FNBaseViewController {
 
 extension FNGoodsDetailController: UITableViewDataSource, UITableViewDelegate {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return detailVM?.getNumberOfSections() ?? 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return detailVM?.Goods?.count ?? 0
+        return detailVM?.getnumberOfRowsInSection(section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,13 +117,13 @@ extension FNGoodsDetailController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return headView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        return headView
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 50
+//    }
 }
 
 extension FNGoodsDetailController: MKRefreshTableViewDelegate {
